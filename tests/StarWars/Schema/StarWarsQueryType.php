@@ -32,9 +32,7 @@ class StarWarsQueryType extends AbstractObjectType
                 'args'    => [
                     'episode' => ['type' => new EpisodeEnum()]
                 ],
-                'resolve' => function ($root, $args) {
-                    return StarWarsData::getHero(isset($args['episode']) ? $args['episode'] : null);
-                },
+                'resolve' => fn($root, $args) => StarWarsData::getHero($args['episode'] ?? null),
             ])
             ->addField(new Field([
                 'name'    => 'human',
@@ -45,7 +43,7 @@ class StarWarsQueryType extends AbstractObjectType
                 'resolve' => function ($value = null, $args = []) {
                     $humans = StarWarsData::humans();
 
-                    return isset($humans[$args['id']]) ? $humans[$args['id']] : null;
+                    return $humans[$args['id']] ?? null;
                 }
             ]))
             ->addField(new Field([
@@ -57,7 +55,7 @@ class StarWarsQueryType extends AbstractObjectType
                 'resolve' => function ($value = null, $args = []) {
                     $droids = StarWarsData::droids();
 
-                    return isset($droids[$args['id']]) ? $droids[$args['id']] : null;
+                    return $droids[$args['id']] ?? null;
                 }
             ]));
     }

@@ -10,7 +10,7 @@ use Youshido\GraphQL\Type\Object\ObjectType;
 use Youshido\GraphQL\Type\Scalar\IntType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class Issue116Test extends \PHPUnit_Framework_TestCase
+class Issue116Test extends \PHPUnit\Framework\TestCase
 {
 
     public function testInternalVariableArgument()
@@ -48,14 +48,12 @@ class Issue116Test extends \PHPUnit_Framework_TestCase
                         'args'    => [
                             'first' => new IntType(),
                         ],
-                        'resolve' => function () {
-                            return [
-                                'pageInfo' => [
-                                    'totalEdges' => 10,
-                                    'cursors'    => []
-                                ]
-                            ];
-                        }
+                        'resolve' => fn() => [
+                            'pageInfo' => [
+                                'totalEdges' => 10,
+                                'cursors'    => []
+                            ]
+                        ]
                     ]
                 ]
             ])

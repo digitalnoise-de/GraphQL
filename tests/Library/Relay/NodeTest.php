@@ -12,7 +12,7 @@ namespace Youshido\Tests\Library\Relay;
 use InvalidArgumentException;
 use Youshido\GraphQL\Relay\Node;
 
-class NodeTest extends \PHPUnit_Framework_TestCase
+class NodeTest extends \PHPUnit\Framework\TestCase
 {
     public function testMethods()
     {
@@ -37,7 +37,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromGlobalIdThrowsExceptionIfGivenMalformedId($idToCheck)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Node::fromGlobalId($idToCheck);
     }
 }

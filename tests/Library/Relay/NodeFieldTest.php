@@ -12,7 +12,7 @@ namespace Youshido\Tests\Library\Relay;
 use Youshido\GraphQL\Relay\Fetcher\CallableFetcher;
 use Youshido\GraphQL\Relay\Field\NodeField;
 
-class NodeFieldTest extends \PHPUnit_Framework_TestCase
+class NodeFieldTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testMethods()

@@ -14,14 +14,12 @@ use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Type\TypeMap;
 use Youshido\GraphQL\Type\TypeService;
 
-class NonNullTypeTest extends \PHPUnit_Framework_TestCase
+class NonNullTypeTest extends \PHPUnit\Framework\TestCase
 {
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testInvalidParams()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         new NonNullType('invalid param');
     }
 

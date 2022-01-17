@@ -10,8 +10,11 @@ use Youshido\GraphQL\Type\Scalar\IdType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Type\Union\UnionType;
 
-class Issue151Test extends \PHPUnit_Framework_TestCase
+class Issue151Test extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testInternalVariableArgument()
     {
         $type1 = new ObjectType([
@@ -47,18 +50,16 @@ class Issue151Test extends \PHPUnit_Framework_TestCase
                 'fields' => [
                     'list' => [
                         'type'    => new ListType($unionType),
-                        'resolve' => function () {
-                            return [
-                                [
-                                    'id'   => 1,
-                                    'name' => 'name',
-                                ],
-                                [
-                                    'id'    => 2,
-                                    'title' => 'title',
-                                ],
-                            ];
-                        },
+                        'resolve' => fn() => [
+                            [
+                                'id'   => 1,
+                                'name' => 'name',
+                            ],
+                            [
+                                'id'    => 2,
+                                'title' => 'title',
+                            ],
+                        ],
                     ],
                 ],
             ]),

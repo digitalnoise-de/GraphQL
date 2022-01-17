@@ -19,25 +19,24 @@ use Youshido\GraphQL\Parser\Ast\Query;
 use Youshido\GraphQL\Parser\Location;
 use Youshido\GraphQL\Validator\RequestValidator\RequestValidator;
 
-class RequestValidatorTest extends \PHPUnit_Framework_TestCase
+class RequestValidatorTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
-     * @expectedException \Youshido\GraphQL\Exception\Parser\InvalidRequestException
      * @dataProvider invalidRequestProvider
      *
-     * @param Request $request
      */
     public function testInvalidRequests(Request $request)
     {
+        $this->expectException(\Youshido\GraphQL\Exception\Parser\InvalidRequestException::class);
         (new RequestValidator())->validate($request);
     }
 
     public function invalidRequestProvider()
     {
-        $variable1 = (new Variable('test', 'Int', false, false, true, new Location(1, 1)))->setUsed(true);
-        $variable2 = (new Variable('test2', 'Int', false, false, true, new Location(1, 1)))->setUsed(true);
-        $variable3 = (new Variable('test3', 'Int', false, false, true, new Location(1, 1)))->setUsed(false);
+        $variable1 = (new Variable('test', 'Int', false, false, new Location(1, 1), true))->setUsed(true);
+        $variable2 = (new Variable('test2', 'Int', false, false, new Location(1, 1), true))->setUsed(true);
+        $variable3 = (new Variable('test3', 'Int', false, false, new Location(1, 1), true))->setUsed(false);
 
         return [
             [

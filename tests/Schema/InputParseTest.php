@@ -9,7 +9,7 @@ use Youshido\GraphQL\Type\Scalar\DateTimeType;
 use Youshido\GraphQL\Type\Scalar\DateTimeTzType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class InputParseTest extends \PHPUnit_Framework_TestCase
+class InputParseTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -30,12 +30,10 @@ class InputParseTest extends \PHPUnit_Framework_TestCase
                             'from'   => new DateTimeType('Y-m-d H:i:s'),
                             'fromtz' => new DateTimeTzType(),
                         ],
-                        'resolve' => function ($source, $args) {
-                            return sprintf('Result with %s date and %s tz',
-                                empty($args['from']) ? 'default' : $args['from']->format('Y-m-d H:i:s'),
-                                empty($args['fromtz']) ? 'default' : $args['fromtz']->format('r')
-                            );
-                        },
+                        'resolve' => fn($source, $args) => sprintf('Result with %s date and %s tz',
+                            empty($args['from']) ? 'default' : $args['from']->format('Y-m-d H:i:s'),
+                            empty($args['fromtz']) ? 'default' : $args['fromtz']->format('r')
+                        ),
                     ],
                 ]
             ])

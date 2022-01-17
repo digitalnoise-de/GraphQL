@@ -12,7 +12,7 @@ use Youshido\GraphQL\Relay\Fetcher\CallableFetcher;
 use Youshido\GraphQL\Relay\NodeInterfaceType;
 use Youshido\Tests\DataProvider\TestObjectType;
 
-class NodeInterfaceTypeTest extends \PHPUnit_Framework_TestCase
+class NodeInterfaceTypeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testMethods()
@@ -25,7 +25,7 @@ class NodeInterfaceTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($type->getFetcher());
         $this->assertNull($type->resolveType($testObject));
 
-        $fetcher = new CallableFetcher(function () { }, function () { return new TestObjectType(); });
+        $fetcher = new CallableFetcher(function () { }, fn() => new TestObjectType());
         $type->setFetcher($fetcher);
         $this->assertEquals($fetcher, $type->getFetcher());
 

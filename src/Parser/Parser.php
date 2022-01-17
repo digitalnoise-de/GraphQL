@@ -192,8 +192,8 @@ class Parser extends Tokenizer
                 $type,
                 $required,
                 $isArray,
-                $arrayElementNullable,
-                new Location($variableToken->getLine(), $variableToken->getColumn())
+                new Location($variableToken->getLine(), $variableToken->getColumn()),
+                $arrayElementNullable
             );
 
             if ($this->match(Token::TYPE_EQUAL)) {

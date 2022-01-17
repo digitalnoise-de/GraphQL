@@ -12,11 +12,11 @@ namespace Youshido\Tests\Library\Relay;
 use Youshido\GraphQL\Relay\Fetcher\CallableFetcher;
 use Youshido\Tests\DataProvider\TestObjectType;
 
-class CallableFetcherTest extends \PHPUnit_Framework_TestCase
+class CallableFetcherTest extends \PHPUnit\Framework\TestCase
 {
     public function testMethods()
     {
-        $fetcher = new CallableFetcher(function ($type, $id) { return ['name' => $type . ' Name', 'id' => $id]; }, function ($object) { return $object; });
+        $fetcher = new CallableFetcher(fn($type, $id) => ['name' => $type . ' Name', 'id' => $id], fn($object) => $object);
         $this->assertEquals([
             'name' => 'User Name',
             'id'   => 12

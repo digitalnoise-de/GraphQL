@@ -10,7 +10,7 @@ use Youshido\Tests\Issues\Issue90\Issue90Schema;
  * Date: 25/11/16
  * Time: 9.39
  */
-class Issue90Test extends \PHPUnit_Framework_TestCase
+class Issue90Test extends \PHPUnit\Framework\TestCase
 {
 
     public function testQueryDateTimeTypeWithDateParameter()

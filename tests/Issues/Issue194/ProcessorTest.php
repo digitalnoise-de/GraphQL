@@ -27,9 +27,7 @@ class ProcessorTest extends TestCase
                                 'defaultValue' => 20,
                             ],
                         ],
-                        'resolve' => static function ($source, $args, ResolveInfo $info) {
-                            return 'Alex age ' . $args['age'];
-                        },
+                        'resolve' => static fn($source, $args, ResolveInfo $info) => 'Alex age ' . $args['age'],
                     ],
                 ],
             ]),

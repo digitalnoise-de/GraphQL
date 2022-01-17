@@ -5,7 +5,7 @@ namespace Youshido\Tests\Library\Type;
 use Youshido\GraphQL\Directive\Directive;
 use Youshido\GraphQL\Type\SchemaDirectivesList;
 
-class SchemaDirectivesListTest extends \PHPUnit_Framework_TestCase
+class SchemaDirectivesListTest extends \PHPUnit\Framework\TestCase
 {
     public function testCanAddASingleDirective()
     {
@@ -35,7 +35,8 @@ class SchemaDirectivesListTest extends \PHPUnit_Framework_TestCase
 
     public function testItThrowsExceptionWhenAddingInvalidDirectives()
     {
-        $this->setExpectedException(\Exception::class, "addDirectives accept only array of directives");
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("addDirectives accept only array of directives");
         $directiveList = new SchemaDirectivesList();
         $directiveList->addDirectives("foobar");
     }

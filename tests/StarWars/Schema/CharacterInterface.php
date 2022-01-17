@@ -23,9 +23,7 @@ class CharacterInterface extends AbstractInterfaceType
             ->addField('name', new NonNullType(new StringType()))
             ->addField('friends', [
                 'type'    => new ListType(new CharacterInterface()),
-                'resolve' => function ($value) {
-                    return $value['friends'];
-                }
+                'resolve' => fn($value) => $value['friends']
             ])
             ->addField('appearsIn', new ListType(new EpisodeEnum()));
     }
@@ -45,7 +43,7 @@ class CharacterInterface extends AbstractInterfaceType
         $humans = StarWarsData::humans();
         $droids = StarWarsData::droids();
 
-        $id = isset($object['id']) ? $object['id'] : $object;
+        $id = $object['id'] ?? $object;
 
         if (isset($humans[$id])) {
             return new HumanType();

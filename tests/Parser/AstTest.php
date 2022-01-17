@@ -20,7 +20,7 @@ use Youshido\GraphQL\Parser\Ast\Query;
 use Youshido\GraphQL\Parser\Ast\TypedFragmentReference;
 use Youshido\GraphQL\Parser\Location;
 
-class AstTest extends \PHPUnit_Framework_TestCase
+class AstTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testArgument()
@@ -171,7 +171,7 @@ class AstTest extends \PHPUnit_Framework_TestCase
 
     public function testVariable()
     {
-        $variable = new Variable('id', 'int', false, false, true, new Location(1,1));
+        $variable = new Variable('id', 'int', false, false, new Location(1, 1), true);
 
         $this->assertEquals('id', $variable->getName());
         $this->assertEquals('int', $variable->getTypeName());
@@ -194,12 +194,10 @@ class AstTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new Literal('text', new Location(1,1)), $variable->getValue());
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testVariableLogicException()
     {
-        $variable = new Variable('id', 'int', false, false, true, new Location(1,1));
+        $this->expectException(\LogicException::class);
+        $variable = new Variable('id', 'int', false, false, new Location(1, 1), true);
         $variable->getValue();
     }
 }

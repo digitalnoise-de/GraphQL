@@ -13,7 +13,7 @@ use Youshido\GraphQL\Relay\Field\GlobalIdField;
 use Youshido\GraphQL\Type\NonNullType;
 use Youshido\GraphQL\Type\Scalar\IdType;
 
-class GlobalIdFieldTest extends \PHPUnit_Framework_TestCase
+class GlobalIdFieldTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testSimpleMethods()

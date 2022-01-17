@@ -15,7 +15,7 @@ use Youshido\GraphQL\Type\TypeService;
 use Youshido\Tests\DataProvider\TestInterfaceType;
 use Youshido\Tests\DataProvider\TestObjectType;
 
-class TypeUtilitiesTest extends \PHPUnit_Framework_TestCase
+class TypeUtilitiesTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testTypeService()
@@ -32,11 +32,9 @@ class TypeUtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(TypeService::resolveNamedType(123), $stringType);
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testNamedTypeResolverException()
     {
+        $this->expectException(\Exception::class);
         TypeService::resolveNamedType(['name' => 'test']);
     }
 

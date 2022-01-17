@@ -17,7 +17,7 @@ use Youshido\GraphQL\Parser\Location;
 use Youshido\GraphQL\Type\Scalar\IntType;
 use Youshido\Tests\DataProvider\TestSchema;
 
-class ResolveInfoTest extends \PHPUnit_Framework_TestCase
+class ResolveInfoTest extends \PHPUnit\Framework\TestCase
 {
     public function testMethods()
     {

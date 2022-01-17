@@ -25,9 +25,7 @@ class HumanType extends AbstractObjectType
             ->addField('name', new NonNullType(new StringType()))
             ->addField('friends', [
                 'type'    => new ListType(new CharacterInterface()),
-                'resolve' => function ($droid) {
-                    return StarWarsData::getFriends($droid);
-                },
+                'resolve' => fn($droid) => StarWarsData::getFriends($droid),
             ])
             ->addField('appearsIn', new ListType(new EpisodeEnum()))
             ->addField('homePlanet', TypeMap::TYPE_STRING);

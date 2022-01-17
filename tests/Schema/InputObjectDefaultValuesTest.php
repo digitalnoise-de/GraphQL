@@ -13,7 +13,7 @@ use Youshido\GraphQL\Type\Scalar\DateTimeTzType;
 use Youshido\GraphQL\Type\Scalar\IntType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class InputObjectDefaultValuesTest extends \PHPUnit_Framework_TestCase
+class InputObjectDefaultValuesTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testDefaultEnum()
@@ -49,11 +49,9 @@ class InputObjectDefaultValuesTest extends \PHPUnit_Framework_TestCase
                                 ]
                             ])
                         ],
-                        'resolve'    => function ($source, $args) {
-                            return sprintf('Result with level %s and status %s',
-                                $args['statObject']['level'], $args['statObject']['status']
-                            );
-                        },
+                        'resolve'    => fn($source, $args) => sprintf('Result with level %s and status %s',
+                            $args['statObject']['level'], $args['statObject']['status']
+                        ),
                     ],
                     'enumObject' => [
                         'type' => new ObjectType([
@@ -62,11 +60,9 @@ class InputObjectDefaultValuesTest extends \PHPUnit_Framework_TestCase
                                 'status' => $enumType
                             ]
                         ]),
-                        'resolve' => function() {
-                            return [
-                                'status' => null
-                            ];
-                        }
+                        'resolve' => fn() => [
+                            'status' => null
+                        ]
                     ],
 
                 ]

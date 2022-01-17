@@ -4,7 +4,7 @@ namespace Youshido\Tests\Issues\Issue109;
 
 use Youshido\GraphQL\Execution\Processor;
 
-class Issue109Test extends \PHPUnit_Framework_TestCase
+class Issue109Test extends \PHPUnit\Framework\TestCase
 {
 
     public function testInternalVariableArgument()

@@ -33,7 +33,7 @@ class TokenizerTestingParser extends Parser {
     }
 }
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testEmptyParser()
@@ -50,11 +50,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         ], $parser->parse());
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\Parser\SyntaxErrorException
-     */
     public function testInvalidSelection()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\Parser\SyntaxErrorException::class);
         $parser = new Parser();
         $data   = $parser->parse('
         {
@@ -141,10 +139,10 @@ GRAPHQL;
      * @param $query string
      *
      * @dataProvider wrongQueriesProvider
-     * @expectedException Youshido\GraphQL\Exception\Parser\SyntaxErrorException
      */
     public function testWrongQueries($query)
     {
+        $this->expectException(\Youshido\GraphQL\Exception\Parser\SyntaxErrorException::class);
         $parser = new Parser();
 
         $parser->parse($query);
@@ -470,7 +468,9 @@ GRAPHQL;
                     'queries'            => [
                         new Query('query', null,
                             [
-                                new Argument('teas', new VariableReference('variable', (new Variable('variable', 'Int', false, false, true, new Location(1, 8)))->setUsed(true), new Location(1, 39)), new Location(1, 33)),
+                                new Argument('teas', new VariableReference('variable', (new Variable(
+                                    'variable', 'Int', false, false, new Location(1, 8), true
+                                ))->setUsed(true), new Location(1, 39)), new Location(1, 33)),
                             ],
                             [
                                 new Field('name', 'alias', [], [], new Location(1, 60)),
@@ -480,10 +480,12 @@ GRAPHQL;
                     'fragments'          => [],
                     'fragmentReferences' => [],
                     'variables'          => [
-                        (new Variable('variable', 'Int', false, false, true, new Location(1, 8)))->setUsed(true),
+                        (new Variable('variable', 'Int', false, false, new Location(1, 8), true))->setUsed(true),
                     ],
                     'variableReferences' => [
-                        new VariableReference('variable', (new Variable('variable', 'Int', false, false, true, new Location(1, 8)))->setUsed(true), new Location(1, 39)),
+                        new VariableReference('variable', (new Variable(
+                            'variable', 'Int', false, false, new Location(1, 8), true
+                        ))->setUsed(true), new Location(1, 39)),
                     ],
                 ],
             ],

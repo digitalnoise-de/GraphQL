@@ -11,7 +11,7 @@ use Youshido\GraphQL\Type\Scalar\IdType;
 use Youshido\GraphQL\Type\Scalar\IntType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class Issue149Test extends \PHPUnit_Framework_TestCase
+class Issue149Test extends \PHPUnit\Framework\TestCase
 {
     public function testInternalVariableArgument()
     {
@@ -36,25 +36,23 @@ class Issue149Test extends \PHPUnit_Framework_TestCase
                                 ])),
                             ],
                         ]),
-                        'resolve' => function () {
-                            return [
-                                'id'      => 1,
-                                'name'    => 'John',
-                                'age'     => 30,
-                                'friends' => [
-                                    [
-                                        'id'   => 2,
-                                        'name' => 'Friend 1',
-                                        'age'  => 31,
-                                    ],
-                                    [
-                                        'id'   => 3,
-                                        'name' => 'Friend 2',
-                                        'age'  => 32,
-                                    ],
+                        'resolve' => fn() => [
+                            'id'      => 1,
+                            'name'    => 'John',
+                            'age'     => 30,
+                            'friends' => [
+                                [
+                                    'id'   => 2,
+                                    'name' => 'Friend 1',
+                                    'age'  => 31,
                                 ],
-                            ];
-                        },
+                                [
+                                    'id'   => 3,
+                                    'name' => 'Friend 2',
+                                    'age'  => 32,
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ]),

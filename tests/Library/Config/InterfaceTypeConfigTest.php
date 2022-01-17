@@ -16,7 +16,7 @@ use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator;
 use Youshido\Tests\DataProvider\TestInterfaceType;
 
-class InterfaceTypeConfigTest extends \PHPUnit_Framework_TestCase
+class InterfaceTypeConfigTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testCreation()
@@ -25,31 +25,25 @@ class InterfaceTypeConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($config->getName(), 'Test', 'Normal creation');
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testConfigNoFields()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         ConfigValidator::getInstance()->assertValidConfig(
             new InterfaceTypeConfig(['name' => 'Test', 'resolveType' => function () { }], null, true)
         );
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testConfigNoResolve()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         ConfigValidator::getInstance()->assertValidConfig(
             new InterfaceTypeConfig(['name' => 'Test', 'fields' => ['id' => new IntType()]], null, true)
         );
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testConfigInvalidResolve()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $config = new InterfaceTypeConfig(['name' => 'Test', 'fields' => ['id' => new IntType()]], null, false);
         $config->resolveType(['invalid object']);
     }
@@ -59,9 +53,7 @@ class InterfaceTypeConfigTest extends \PHPUnit_Framework_TestCase
         $interfaceConfig = new InterfaceTypeConfig([
             'name'        => 'Test',
             'fields'      => ['id' => new IntType()],
-            'resolveType' => function ($object) {
-                return $object->getType();
-            }
+            'resolveType' => fn($object) => $object->getType()
         ], null, true);
         $object          = new ObjectType(['name' => 'User', 'fields' => ['name' => new StringType()]]);
 

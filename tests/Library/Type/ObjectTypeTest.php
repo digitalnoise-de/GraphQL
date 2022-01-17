@@ -18,33 +18,27 @@ use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator;
 use Youshido\Tests\DataProvider\TestMutationObjectType;
 use Youshido\Tests\DataProvider\TestObjectType;
 
-class ObjectTypeTest extends \PHPUnit_Framework_TestCase
+class ObjectTypeTest extends \PHPUnit\Framework\TestCase
 {
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testCreatingInvalidObject()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         new ObjectType([]);
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testInvalidNameParam()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $type = new ObjectType([
             'name' => null
         ]);
         ConfigValidator::getInstance()->assertValidConfig($type->getConfig());
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testInvalidFieldsParam()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $type = new ObjectType([
             'name'   => 'SomeName',
             'fields' => []
@@ -52,11 +46,9 @@ class ObjectTypeTest extends \PHPUnit_Framework_TestCase
         ConfigValidator::getInstance()->assertValidConfig($type->getConfig());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testSerialize()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $object = new ObjectType([
             'name'   => 'SomeName',
             'fields' => [

@@ -8,6 +8,7 @@
 
 namespace Youshido\Tests\Schema;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Youshido\GraphQL\Config\Schema\SchemaConfig;
 use Youshido\GraphQL\Execution\DeferredResolver;
 use Youshido\GraphQL\Execution\Processor;
@@ -42,15 +43,12 @@ interface DeferredDatabase
 class DeferredQueryBuffer
 {
 
-    protected $database;
-
     protected $buffer = [];
 
     protected $results = [];
 
-    public function __construct(DeferredDatabase $database)
+    public function __construct(protected DeferredDatabase $database)
     {
-        $this->database = $database;
     }
 
     public function add(array $ids)
@@ -58,9 +56,7 @@ class DeferredQueryBuffer
         $key = md5(serialize($ids));
         $this->buffer[$key] = $ids;
 
-        return function () use ($key) {
-            return $this->fetch($key);
-        };
+        return fn() => $this->fetch($key);
     }
 
     protected function fetch($resultId)
@@ -86,14 +82,8 @@ class DeferredQueryBuffer
 class DeferredUserType extends AbstractObjectType
 {
 
-    /**
-     * @var \Youshido\Tests\Schema\DeferredQueryBuffer
-     */
-    protected $database;
-
-    public function __construct(DeferredQueryBuffer $database)
+    public function __construct(protected DeferredQueryBuffer $database)
     {
-        $this->database = $database;
         parent::__construct();
     }
 
@@ -105,9 +95,7 @@ class DeferredUserType extends AbstractObjectType
             [
               'name' => 'name',
               'type' => new StringType(),
-              'resolve' => function ($value) {
-                  return $value['name'];
-              },
+              'resolve' => fn($value) => $value['name'],
             ]
           )
         );
@@ -117,11 +105,9 @@ class DeferredUserType extends AbstractObjectType
             [
               'name' => 'friends',
               'type' => new ListType(new DeferredUserType($this->database)),
-              'resolve' => function ($value) {
-                  return new DeferredResolver(
-                    $this->database->add($value['friends'])
-                  );
-              },
+              'resolve' => fn($value) => new DeferredResolver(
+                $this->database->add($value['friends'])
+              ),
             ]
           )
         );
@@ -131,11 +117,9 @@ class DeferredUserType extends AbstractObjectType
             [
               'name' => 'foes',
               'type' => new ListType(new DeferredUserType($this->database)),
-              'resolve' => function ($value) {
-                  return new DeferredResolver(
-                    $this->database->add($value['foes'])
-                  );
-              },
+              'resolve' => fn($value) => new DeferredResolver(
+                $this->database->add($value['foes'])
+              ),
             ]
           )
         );
@@ -151,9 +135,7 @@ class DeferredSchema extends AbstractSchema
           [
             'name' => 'users',
             'type' => new ListType(new DeferredUserType($buffer)),
-            'resolve' => function ($value, $args) use ($buffer) {
-                return new DeferredResolver($buffer->add($args['ids']));
-            },
+            'resolve' => fn($value, $args) => new DeferredResolver($buffer->add($args['ids'])),
           ]
         );
 
@@ -186,8 +168,9 @@ class DeferredSchema extends AbstractSchema
 /**
  * Test the deferred resolving under different circumstances.
  */
-class DeferredTest extends \PHPUnit_Framework_TestCase
+class DeferredTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
 
     /**
      * @var Processor

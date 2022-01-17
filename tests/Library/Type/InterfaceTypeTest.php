@@ -16,7 +16,7 @@ use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\Tests\DataProvider\TestExtendedType;
 use Youshido\Tests\DataProvider\TestInterfaceType;
 
-class InterfaceTypeTest extends \PHPUnit_Framework_TestCase
+class InterfaceTypeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testInterfaceMethods()
@@ -47,9 +47,7 @@ class InterfaceTypeTest extends \PHPUnit_Framework_TestCase
             'fields'      => [
                 'name' => new StringType()
             ],
-            'resolveType' => function ($object) {
-                return $object;
-            }
+            'resolveType' => fn($object) => $object
         ]);
         $this->assertEquals('UserInterface', $interfaceType->getName());
 

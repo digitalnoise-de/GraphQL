@@ -13,22 +13,18 @@ use Youshido\GraphQL\Type\TypeMap;
 use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator;
 use Youshido\Tests\DataProvider\TestEnumType;
 
-class EnumTypeTest extends \PHPUnit_Framework_TestCase
+class EnumTypeTest extends \PHPUnit\Framework\TestCase
 {
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testInvalidInlineCreation()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         new EnumType([]);
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testInvalidEmptyParams()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $enumField = new EnumType([
             'values' => []
         ]);
@@ -36,11 +32,9 @@ class EnumTypeTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testInvalidValueParams()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $enumField = new EnumType([
             'values' => [
                 'test'  => 'asd',
@@ -50,11 +44,9 @@ class EnumTypeTest extends \PHPUnit_Framework_TestCase
         ConfigValidator::getInstance()->assertValidConfig($enumField->getConfig());
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testExistingNameParams()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $enumField = new EnumType([
             'values' => [
                 [
@@ -66,11 +58,9 @@ class EnumTypeTest extends \PHPUnit_Framework_TestCase
         ConfigValidator::getInstance()->assertValidConfig($enumField->getConfig());
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testInvalidNameParams()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $enumField = new EnumType([
             'values' => [
                 [
@@ -82,11 +72,9 @@ class EnumTypeTest extends \PHPUnit_Framework_TestCase
         ConfigValidator::getInstance()->assertValidConfig($enumField->getConfig());
     }
 
-    /**
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
-     */
     public function testWithoutValueParams()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $enumField = new EnumType([
             'values' => [
                 [

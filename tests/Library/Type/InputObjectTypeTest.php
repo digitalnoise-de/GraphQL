@@ -22,7 +22,7 @@ use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Type\TypeMap;
 use Youshido\Tests\DataProvider\TestInputObjectType;
 
-class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
+class InputObjectTypeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testInternal()
@@ -55,9 +55,7 @@ class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
                 'fields' => [
                     'empty' => [
                         'type'    => new StringType(),
-                        'resolve' => function () {
-                            return null;
-                        }
+                        'resolve' => fn() => null
                     ]
                 ]
             ]),
@@ -74,9 +72,7 @@ class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
                             ]))
                         ],
                         'type'    => new BooleanType(),
-                        'resolve' => function ($object, $args) {
-                            return true;
-                        }
+                        'resolve' => fn($object, $args) => true
                     ]
                 ]
             ])
@@ -108,9 +104,7 @@ class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
                 'fields' => [
                     'empty' => [
                         'type'    => new StringType(),
-                        'resolve' => function () {
-                            return null;
-                        }
+                        'resolve' => fn() => null
                     ]
                 ]
             ]),
@@ -127,9 +121,7 @@ class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
                             ])
                         ],
                         'type'    => new BooleanType(),
-                        'resolve' => function ($object, $args) {
-                            return true;
-                        }
+                        'resolve' => fn($object, $args) => true
                     ]
                 ]
             ])
@@ -174,9 +166,7 @@ class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
                                 ]
                             ])
                         ],
-                        'resolve' => function () {
-                            return 'success message';
-                        }
+                        'resolve' => fn() => 'success message'
                     ]
                 ]
             ])
@@ -223,12 +213,10 @@ class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
                                 ],
                             ],
                         ],
-                        'resolve' => function ($source, $args) {
-                            return [
-                                'limit is ' . $args['paging']['limit'],
-                                'offset is ' . $args['paging']['offset'],
-                            ];
-                        }
+                        'resolve' => fn($source, $args) => [
+                            'limit is ' . $args['paging']['limit'],
+                            'offset is ' . $args['paging']['offset'],
+                        ]
                     ],
 
                 ]
@@ -270,9 +258,7 @@ class InputObjectTypeTest extends \PHPUnit_Framework_TestCase
                                 ]
                             ]),
                         ],
-                        'resolve' => function ($source, $args) {
-                            return sprintf('%s by %s', $args['title'], $args['userId']);
-                        }
+                        'resolve' => fn($source, $args) => sprintf('%s by %s', $args['title'], $args['userId'])
                     ],
 
                 ]

@@ -14,7 +14,7 @@ use Youshido\GraphQL\Field\InputField;
 use Youshido\GraphQL\Type\Scalar\IntType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class ArgumentsAwareConfigTraitTest extends \PHPUnit_Framework_TestCase
+class ArgumentsAwareConfigTraitTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testArguments()

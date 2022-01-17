@@ -40,7 +40,7 @@ class Issue99Schema extends AbstractSchema
                                         ]
                                     ],
                                     'resolve' => function($source, $args) {
-                                        $x = isset($args['argX']['x']) ? $args['argX']['x'] : Issue99Test::BUG_EXISTS_VALUE;
+                                        $x = $args['argX']['x'] ?? Issue99Test::BUG_EXISTS_VALUE;
 
                                         return [
                                             'value' => $x
@@ -52,14 +52,12 @@ class Issue99Schema extends AbstractSchema
                         'args'    => [
                             'example' => new StringType()
                         ],
-                        'resolve' => function () {
-                            return [
-                                ['id' => 1],
-                                ['id' => 2],
-                                ['id' => 3],
-                                ['id' => 4],
-                            ];
-                        }
+                        'resolve' => fn() => [
+                            ['id' => 1],
+                            ['id' => 2],
+                            ['id' => 3],
+                            ['id' => 4],
+                        ]
                     ])
                 ]
             ])

@@ -22,10 +22,10 @@ use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator;
 use Youshido\Tests\DataProvider\TestInputField;
 
-class InputFieldTest extends \PHPUnit_Framework_TestCase
+class InputFieldTest extends \PHPUnit\Framework\TestCase
 {
 
-    private $introspectionQuery = <<<TEXT
+    private string $introspectionQuery = <<<TEXT
 
 query IntrospectionQuery {
                 __schema {
@@ -105,6 +105,9 @@ query IntrospectionQuery {
             }
 TEXT;
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testFieldWithInputFieldArgument()
     {
         $schema    = new Schema([
@@ -159,6 +162,9 @@ TEXT;
         $this->assertEquals('default', $field->getDefaultValue());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testListAsInputField()
     {
         new InputField([
@@ -169,10 +175,10 @@ TEXT;
 
     /**
      * @dataProvider invalidInputFieldProvider
-     * @expectedException Youshido\GraphQL\Exception\ConfigurationException
      */
     public function testInvalidInputFieldParams($fieldConfig)
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
         $field = new InputField($fieldConfig);
         ConfigValidator::getInstance()->assertValidConfig($field->getConfig());
     }

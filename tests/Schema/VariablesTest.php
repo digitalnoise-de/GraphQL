@@ -10,7 +10,7 @@ use Youshido\GraphQL\Type\Object\ObjectType;
 use Youshido\GraphQL\Type\Scalar\IdType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class VariablesTest extends \PHPUnit_Framework_TestCase
+class VariablesTest extends \PHPUnit\Framework\TestCase
 {
     public function testInvalidNullableList()
     {
@@ -23,9 +23,7 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
                         'args'    => [
                             'ids' => new ListType(new NonNullType(new IdType())),
                         ],
-                        'resolve' => function () {
-                            return 'item';
-                        },
+                        'resolve' => fn() => 'item',
                     ],
                 ],
             ]),
@@ -100,9 +98,7 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
                         'args'    => [
                             'sortOrder' => new StringType(),
                         ],
-                        'resolve' => function ($args) {
-                            return sprintf('Result with %s order', empty($args['sortOrder']) ? 'default' : $args['sortOrder']);
-                        },
+                        'resolve' => fn($args) => sprintf('Result with %s order', empty($args['sortOrder']) ? 'default' : $args['sortOrder']),
                     ],
                 ],
             ]),

@@ -15,12 +15,12 @@ use Youshido\GraphQL\Parser\Location;
 use Youshido\GraphQL\Validator\ErrorContainer\ErrorContainerInterface;
 use Youshido\GraphQL\Validator\ErrorContainer\ErrorContainerTrait;
 
-class ErrorContainerTraitTest extends \PHPUnit_Framework_TestCase implements ErrorContainerInterface
+class ErrorContainerTraitTest extends \PHPUnit\Framework\TestCase implements ErrorContainerInterface
 {
 
     use ErrorContainerTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->clearErrors();
     }

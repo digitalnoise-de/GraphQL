@@ -12,7 +12,7 @@ namespace Youshido\Tests\Library\Config;
 use Youshido\GraphQL\Config\Field\FieldConfig;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class FieldConfigTest extends \PHPUnit_Framework_TestCase
+class FieldConfigTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testInvalidParams()
@@ -20,9 +20,7 @@ class FieldConfigTest extends \PHPUnit_Framework_TestCase
         $fieldConfig = new FieldConfig([
             'name'    => 'FirstName',
             'type'    => new StringType(),
-            'resolve' => function ($value, $args = [], $type = null) {
-                return 'John';
-            }
+            'resolve' => fn($value, $args = [], $type = null) => 'John'
         ]);
 
         $this->assertEquals('FirstName', $fieldConfig->getName());

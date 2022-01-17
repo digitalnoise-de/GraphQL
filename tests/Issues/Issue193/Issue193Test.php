@@ -11,7 +11,7 @@ use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\Scalar\IntType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 
-class Issue193Test extends \PHPUnit_Framework_TestCase
+class Issue193Test extends \PHPUnit\Framework\TestCase
 {
     public function testResolvedInterfacesShouldBeRegistered()
     {
@@ -21,9 +21,7 @@ class Issue193Test extends \PHPUnit_Framework_TestCase
         $processor->processPayload($this->getIntrospectionQuery(), []);
         $resp = $processor->getResponseData();
 
-        $typeNames = array_map(function ($type) {
-            return $type['name'];
-        }, $resp['data']['__schema']['types']);
+        $typeNames = array_map(fn($type) => $type['name'], $resp['data']['__schema']['types']);
 
         // Check that all types are discovered
         $this->assertContains('ContentBlockInterface', $typeNames);

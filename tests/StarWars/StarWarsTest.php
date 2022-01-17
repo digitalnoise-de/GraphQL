@@ -11,7 +11,7 @@ namespace Youshido\Tests\StarWars;
 use Youshido\GraphQL\Execution\Processor;
 use Youshido\Tests\StarWars\Schema\StarWarsSchema;
 
-class StarWarsTest extends \PHPUnit_Framework_TestCase
+class StarWarsTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

@@ -73,7 +73,7 @@ class ReservationInterface extends AbstractInterfaceType
 {
     public function resolveType($object)
     {
-        return strpos($object['id'], 'cl') === false ? new CourtReservation() : new ClassReservation();
+        return !str_contains($object['id'], 'cl') ? new CourtReservation() : new ClassReservation();
     }
 
     public function build($config)
@@ -85,7 +85,7 @@ class ReservationInterface extends AbstractInterfaceType
 
 }
 
-class FragmentsTest extends \PHPUnit_Framework_TestCase
+class FragmentsTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -103,33 +103,31 @@ class FragmentsTest extends \PHPUnit_Framework_TestCase
                 'fields' => [
                     'user' => [
                         'type'    => new UserType(),
-                        'resolve' => function ($args) {
-                            return [
-                                'id'           => 'user-id-1',
-                                'fullName'     => 'Alex',
-                                'reservations' => [
-                                    [
-                                        'id'   => 'cl-1',
-                                        'user' => [
-                                            'id'       => 'user-id-2',
-                                            'fullName' => 'User class1'
-                                        ],
+                        'resolve' => fn($args) => [
+                            'id'           => 'user-id-1',
+                            'fullName'     => 'Alex',
+                            'reservations' => [
+                                [
+                                    'id'   => 'cl-1',
+                                    'user' => [
+                                        'id'       => 'user-id-2',
+                                        'fullName' => 'User class1'
                                     ],
-                                    [
-                                        'id'      => 'court-1',
-                                        'players' => [
-                                            [
-                                                'id'   => 'player-id-1',
-                                                'user' => [
-                                                    'id'       => 'user-id-3',
-                                                    'fullName' => 'User court1'
-                                                ]
+                                ],
+                                [
+                                    'id'      => 'court-1',
+                                    'players' => [
+                                        [
+                                            'id'   => 'player-id-1',
+                                            'user' => [
+                                                'id'       => 'user-id-3',
+                                                'fullName' => 'User court1'
                                             ]
                                         ]
-                                    ],
-                                ]
-                            ];
-                        },
+                                    ]
+                                ],
+                            ]
+                        ],
                     ],
                 ]
             ])
@@ -217,12 +215,10 @@ class FragmentsTest extends \PHPUnit_Framework_TestCase
                 'fields' => [
                     'user' => [
                         'type'    => new UserType(),
-                        'resolve' => function ($args) {
-                            return [
-                                'id'       => 'user-id-1',
-                                'fullName' => 'Alex',
-                            ];
-                        },
+                        'resolve' => fn($args) => [
+                            'id'       => 'user-id-1',
+                            'fullName' => 'Alex',
+                        ],
                         'args' => [
                             'id' => new IntType(),
                         ]

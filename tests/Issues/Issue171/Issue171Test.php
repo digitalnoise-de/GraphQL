@@ -3,7 +3,7 @@ namespace Youshido\Tests\Issues\Issue171;
 
 use Youshido\GraphQL\Execution\Processor;
 
-class Issue171Test extends \PHPUnit_Framework_TestCase
+class Issue171Test extends \PHPUnit\Framework\TestCase
 {
     public function testItSetsDeprecationReasonToNullByDefault()
     {
@@ -13,9 +13,7 @@ class Issue171Test extends \PHPUnit_Framework_TestCase
         $processor->processPayload($this->getIntrospectionQuery(), []);
         $resp = $processor->getResponseData();
 
-        $enumTypes = array_filter($resp['data']['__schema']['types'], function($type){
-            return ($type['kind'] === 'ENUM');
-        });
+        $enumTypes = array_filter($resp['data']['__schema']['types'], fn($type) => $type['kind'] === 'ENUM');
 
         foreach ($enumTypes as $enumType) {
             foreach ($enumType['enumValues'] as $value) {

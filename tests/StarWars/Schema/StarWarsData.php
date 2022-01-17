@@ -146,6 +146,6 @@ class StarWarsData
      */
     static function getFriends($character)
     {
-        return array_map([__CLASS__, 'getCharacter'], $character['friends']);
+        return array_map([self::class, 'getCharacter'], $character['friends']);
     }
 }

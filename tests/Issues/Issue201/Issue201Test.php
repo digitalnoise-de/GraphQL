@@ -13,11 +13,11 @@ class Issue201Test extends TestCase
 
     /**
      * @throws \Youshido\GraphQL\Exception\ConfigurationException
-     * @expectedException \Youshido\GraphQL\Exception\ConfigurationException
-     * @expectedExceptionMessage Type "user" was defined more than once
      */
     public function testExceptionOnDuplicateTypeName()
     {
+        $this->expectException(\Youshido\GraphQL\Exception\ConfigurationException::class);
+        $this->expectExceptionMessage('Type "user" was defined more than once');
         $schema = new Schema([
             'query' => new ObjectType([
                 'name'   => 'RootQuery',

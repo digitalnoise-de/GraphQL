@@ -15,7 +15,7 @@ use Youshido\GraphQL\Type\TypeFactory;
 use Youshido\GraphQL\Type\TypeMap;
 use Youshido\GraphQL\Type\TypeService;
 
-class ScalarTypeTest extends \PHPUnit_Framework_TestCase
+class ScalarTypeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testScalarPrimitives()
@@ -32,7 +32,7 @@ class ScalarTypeTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($scalarType->getType(), $scalarType->getNamedType());
             $this->assertNull($scalarType->getConfig());
 
-            foreach (call_user_func(['Youshido\Tests\DataProvider\TestScalarDataProvider', $testDataMethod]) as list($data, $serialized, $isValid)) {
+            foreach (call_user_func([\Youshido\Tests\DataProvider\TestScalarDataProvider::class, $testDataMethod]) as [$data, $serialized, $isValid]) {
 
                 $this->assertSerialization($scalarType, $data, $serialized);
                 $this->assertParse($scalarType, $data, $serialized, $typeName);

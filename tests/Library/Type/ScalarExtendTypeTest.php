@@ -15,7 +15,7 @@ use Youshido\GraphQL\Type\Object\ObjectType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\Tests\DataProvider\TestTimeType;
 
-class ScalarExtendTypeTest extends \PHPUnit_Framework_TestCase
+class ScalarExtendTypeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testType()
@@ -33,12 +33,10 @@ class ScalarExtendTypeTest extends \PHPUnit_Framework_TestCase
                     'fields' => [
                         'latestReport' => [
                             'type'    => $reportType,
-                            'resolve' => function () {
-                                return [
-                                    'title' => 'Accident #1',
-                                    'time'  => '13:30:12',
-                                ];
-                            }
+                            'resolve' => fn() => [
+                                'title' => 'Accident #1',
+                                'time'  => '13:30:12',
+                            ]
                         ],
                     ]
                 ])
